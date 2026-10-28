@@ -5,7 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lab5_product_preview/main.dart';
+import 'package:lab5_product_preview/nova.dart';
 
 import 'widget_test.dart' show loadFonts;
 
@@ -70,6 +70,10 @@ void main() {
     final pages = <String, Widget>{
       'onboarding': OnboardingScreen(store: s),
       'feed': RootScreen(store: s),
+      'catalog-grid': RootScreen(store: s, initialGridMode: true),
+      'catalog-empty': RootScreen(
+        store: AppStore(MemoryRepository())..catalog.clear(),
+      ),
       'detail': DetailScreen(product: products[0], store: s),
       'favorites': Scaffold(
         appBar: AppBar(title: const Text('NOVA')),

@@ -1,19 +1,24 @@
-# NOVA implementation progress
+# NOVA — каталог и жесты
 
-Scope: existing Flutter store, single-file application architecture, Labs 5–7 retained. Windows/Android validation; iOS requires a Mac.
+Обновление от 28 октября 2026 года. Продукт остался магазином NOVA; предыдущие сценарии Labs 5–7 сохранены.
 
-- [x] 1. Baseline checkpoint, tokens, light/dark theme, component gallery and original assets.
-- [x] 2. Models, repository, local persistence, variant-aware cart and demo orders.
-- [x] 3. Editorial catalog, product details, favorites and full shopping flow.
-- [x] 4. Registration, profile, appearance and order history.
-- [x] 5. Accessibility, meaningful tests, screenshots and design QA.
-- [x] 6a. APK, emulator launch verification and final documentation.
-- [x] 6b. Android MP4 walkthrough, captured on the separate NOVA_Demo emulator and visually reviewed.
+- [x] Разделить приложение на models, widgets, screens, data, state и core.
+- [x] Добавить ленивый ListView.separated и двухколоночный GridView.builder.
+- [x] Переключатель режимов в AppBar и общая коллекция.
+- [x] RefreshIndicator: задержка 1500 мс, insert(0), setState, уникальные ID.
+- [x] Dismissible: ValueKey(product.id), красный фон, Icons.delete, UNDO по исходному индексу.
+- [x] Catalog is Empty, Restore catalog и обновление пустой коллекции.
+- [x] Сохранение изменённого каталога; новые товары работают с деталями, избранным и корзиной.
+- [x] Заменить активные изображения фотографиями из интернета; записать источники.
+- [x] Добавить 17 тестов каталога, сохранить 18 регрессионных тестов.
+- [x] Проверить light/dark, крупный текст и сетку на узком/широком экранах.
+- [x] Собрать Android debug APK и установить в NOVA_Demo.
+- [x] Подготовить чек-лист задания и сценарий защиты.
+- [x] Проверить итоговый код: flutter analyze — No issues found; flutter test — 35 passed, 1 optional screenshot export skipped.
+- [x] Отдельно выполнить экспорт актуальных скриншотов с CAPTURE=true.
+- [x] Записать и визуально проверить Demo/catalog-gestures.mp4 (720×1600).
+- [x] Проверить Restore catalog на эмуляторе: исходные четыре товара возвращаются.
 
-Optional live backend: deferred; no service credentials are available. Demo mode is explicit.
+Скриншоты Flutter экспортируются через test/demo_capture_test.dart. Файлы emulator-catalog-* относятся к текущей Android-версии; остальные emulator-* и nova-walkthrough.mp4 содержат также исторические материалы предыдущей сдачи.
 
-Verified: flutter analyze reports no issues; all 18 tests pass; screenshot export passes; Android debug APK builds. Six viewport sizes and doubled text are covered, with keyboard/error layouts and sticky actions. NOVA was installed and launched, and the live device showed detail navigation, bookmarking, a persisted favorite, Add to Cart feedback and a pinned action during scrolling. The emulator was restarted without clearing data. Idle Gradle daemons were stopped to release RAM, and this project's maximum build heap was reduced from 8 GB to 3 GB for future builds.
-
-The original emulator also reported a disconnected shared-storage endpoint. A separate NOVA_Demo AVD was created with the installed Android 36.1 image; the old AVD and its data were preserved. The final APK was installed and opened on NOVA_Demo. Demo/nova-walkthrough.mp4 contains the verified feed, product, cart feedback, back navigation, Favorites and Profile transitions at 720×1600. Sampled playback frames were reviewed and contain no system-error dialogs. Android emulator rendering can be uneven during transitions; the recording is functional demonstration evidence, not an iOS performance benchmark.
-
-iOS build/signing requires macOS and was not verified here. The standalone submission repository is https://github.com/Makhkam11-good/LAB7. It contains the current application and evidence; the earlier standalone Lab 6 and obsolete assets are excluded.
+Проверка iOS требует macOS/Xcode и здесь не выполнялась. Backend, серверная регистрация и реальная оплата не входят в эту лабораторную. Вопрос преподавателя студент отвечает лично во время защиты.

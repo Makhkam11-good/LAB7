@@ -8,7 +8,7 @@ The visual direction is an editorial store for considered everyday objects. A wa
 - Cards: 20–28 px corners, flat surfaces and subtle borders. No decorative shadow stack.
 - Roboto is bundled locally at regular, medium and bold weights.
 - Small uppercase labels establish hierarchy; large headings use tighter tracking.
-- Content grows vertically. Product grids adapt their column count; details switch to two columns when space allows. Large text reduces grid density.
+- The catalog uses a lazy separated list or exactly two grid columns. Grid card height grows with text scaling and narrow widths; a compact search header leaves room for content on small/landscape screens. Favorites retain their adaptive wrap layout; details switch to two columns when space allows.
 - Bottom actions use SafeArea, Row and Expanded; the body scrolls independently.
 - The separate ComponentGallery widget is exercised by the capture test; it is kept out of the shopping flow.
 
@@ -31,10 +31,12 @@ Custom animation durations become zero when MediaQuery.disableAnimations is enab
 
 Search and favorites have actionable empty states. Sold-out finishes disable Add to Cart. Bag quantities cannot exceed remaining local stock. Registration displays field-specific errors and enforces consent. Storage failures leave in-memory state usable and expose Retry. Checkout and receipts explicitly identify demo orders.
 
-Photos show the signature finish; variant selection does not fake a new photograph. Local profiles do not imply server authentication. Prices and editorial ratings are illustrative.
+Catalog photos are real Unsplash images bundled for offline use. Photos, finishes, specifications and ratings are illustrative; variant selection does not fake a new photograph. Local profiles do not imply server authentication.
 
 ## Verification
 
 The automated layout matrix covers 11 screens at six viewport sizes with normal and doubled text. Form error/keyboard layouts and pinned action positions are checked separately within that matrix. Screenshot fixtures cover light, dark and enlarged text, plus a wide detail layout. Screenshots prefixed emulator- come from the Android device; the other PNGs are Flutter component renders.
 
-All application classes remain in main.dart for the requested single-file submission. They have explicit model/state/component/screen boundaries so later course milestones can move them into separate folders.
+Application code is split into models, data, state, core, widgets and screens. main.dart only bootstraps the app. Catalog gestures live in FeedScreen, tile layout in CatalogTile, and deterministic seed/arrival generation in data/catalog.dart.
+
+Deleting a catalog entry does not delete an already saved favorite, bag line or historic order. UNDO restores the original backing-list index (clamped if other entries have since been removed). Restoring seed data invalidates pending undo actions and preserves the monotonically increasing arrival serial. Refresh clears active filters/sorting so the new item is visibly first. The simulated request does not depend on internet availability.
