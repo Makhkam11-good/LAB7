@@ -20,7 +20,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late final email = TextEditingController(text: widget.initial?.email ?? '');
   final password = TextEditingController(), confirm = TextEditingController();
   final confirmKey = GlobalKey<FormFieldState<String>>();
-  late String role = widget.initial?.role ?? 'Student';
+  late final String role = widget.initial?.role ?? 'Student';
   bool accepted = false,
       showPassword = false,
       showConfirm = false,
@@ -213,23 +213,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         const SizedBox(height: 24),
         const Divider(),
         const SizedBox(height: 24),
-        const Kicker('03 / Your world'),
-        const SizedBox(height: 16),
-        DropdownButtonFormField<String>(
-          initialValue: role,
-          isExpanded: true,
-          decoration: const InputDecoration(
-            labelText: 'Your role',
-            prefixIcon: Icon(Icons.work_outline_rounded),
-          ),
-          items: [
-            'Student',
-            'Teacher',
-            'Developer',
-          ].map((r) => DropdownMenuItem(value: r, child: Text(r))).toList(),
-          onChanged: (v) => setState(() => role = v!),
-        ),
-        const SizedBox(height: 20),
         CheckboxListTile(
           contentPadding: EdgeInsets.zero,
           controlAffinity: ListTileControlAffinity.leading,

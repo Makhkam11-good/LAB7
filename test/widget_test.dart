@@ -154,7 +154,7 @@ void main() {
     },
   );
   testWidgets(
-    'form validates live, blocks terms, selects role and updates profile',
+    'form validates live, blocks terms and creates profile without role selector',
     (t) async {
       viewport(t, const Size(700, 1200), 1);
       final s = ready();
@@ -194,11 +194,9 @@ void main() {
       await tapVisible(t, find.text('Create profile'));
       expect(s.profile, isNull);
       await tapVisible(t, find.byType(CheckboxListTile));
-      await tapVisible(t, find.byType(DropdownButtonFormField<String>));
-      await t.tap(find.text('Developer').last);
-      await t.pumpAndSettle();
+      expect(find.byType(DropdownButtonFormField<String>), findsNothing);
       await tapVisible(t, find.text('Create profile'));
-      expect(s.profile!.role, 'Developer');
+      expect(s.profile!.role, 'Student');
       expect(find.text('Alex Student'), findsOneWidget);
       expect(t.takeException(), isNull);
       await s.flush();

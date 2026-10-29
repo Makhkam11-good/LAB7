@@ -11,7 +11,7 @@ The visual direction is an editorial store for considered everyday objects. A wa
 - The catalog uses a lazy separated list or exactly two grid columns. Grid card height grows with text scaling and narrow widths; a compact search header leaves room for content on small/landscape screens. Favorites retain their adaptive wrap layout; details switch to two columns when space allows.
 - Bottom actions use SafeArea, Row and Expanded; the body scrolls independently.
 - The separate ComponentGallery widget is exercised by the capture test; it is kept out of the shopping flow.
-- Registration has a sage welcome panel with the NOVA monogram and a bordered form card divided into personal details, privacy and role sections. Wide screens place the welcome panel beside the form; small screens and enlarged text use a single scrolling column. Autofill, field validation and keyboard navigation remain available.
+- Registration has a sage welcome panel with the NOVA monogram and a bordered form card divided into personal details and privacy sections, followed by consent. There is no role selector. Wide screens place the welcome panel beside the form; small screens and enlarged text use a single scrolling column. Autofill, field validation and keyboard navigation remain available.
 
 ## Motion
 
