@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
     return PageBody(
       maxWidth: 760,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 8),
           const Kicker('A space of your own'),
