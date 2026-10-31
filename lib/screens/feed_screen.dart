@@ -22,7 +22,7 @@ class _FeedScreenState extends State<FeedScreen> {
   final search = TextEditingController();
   final listScroll = ScrollController();
   final gridScroll = ScrollController();
-  String category = 'All', sort = 'Curated';
+  String category = 'All', sort = 'Newest';
   bool refreshing = false;
   int resetGeneration = 0;
 
@@ -40,17 +40,10 @@ class _FeedScreenState extends State<FeedScreen> {
     await Future.delayed(const Duration(milliseconds: 1500));
     if (!mounted) return;
     setState(() {
-      widget.store.catalog.insert(
-        0,
-        arrivalProduct(++widget.store.arrivalSerial),
-      );
-      // Show the arrival at index zero, even if refresh began with a filter.
-      search.clear();
-      category = 'All';
-      sort = 'Curated';
+      // Refresh existing items only; keep the user's search and category.
+      sort = 'Newest';
       refreshing = false;
     });
-    widget.store.saveCatalog();
     for (final controller in [listScroll, gridScroll]) {
       if (controller.hasClients) controller.jumpTo(0);
     }
@@ -98,7 +91,7 @@ class _FeedScreenState extends State<FeedScreen> {
     search.clear();
     setState(() {
       category = 'All';
-      sort = 'Curated';
+      sort = 'Newest';
     });
   }
 
@@ -111,7 +104,7 @@ class _FeedScreenState extends State<FeedScreen> {
         ..addAll(products);
       search.clear();
       category = 'All';
-      sort = 'Curated';
+      sort = 'Newest';
     });
     widget.store.saveCatalog();
   }
@@ -224,7 +217,7 @@ class _FeedScreenState extends State<FeedScreen> {
                             Expanded(
                               child: Text(
                                 refreshing
-                                    ? 'Finding something new…'
+                                    ? 'Refreshing collection…'
                                     : '${items.length} objects · Swipe left to remove',
                                 maxLines: 2,
                                 style: TextStyle(
@@ -240,6 +233,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                   setState(() => sort = value),
                               itemBuilder: (_) =>
                                   [
+                                        'Newest',
                                         'Curated',
                                         'Price: low to high',
                                         'Price: high to low',
@@ -277,7 +271,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                     ? 'Catalog is Empty'
                                     : 'No matching objects',
                                 message: widget.store.catalog.isEmpty
-                                    ? 'A fresh start. Restore the collection or pull down to discover something new.'
+                                    ? 'A fresh start. Restore the collection to see your objects again.'
                                     : 'Try another search or reset your filters.',
                                 action: widget.store.catalog.isEmpty
                                     ? 'Restore catalog'

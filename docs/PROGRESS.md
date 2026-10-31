@@ -5,7 +5,7 @@
 - [x] Разделить приложение на models, widgets, screens, data, state и core.
 - [x] Добавить ленивый ListView.separated и двухколоночный GridView.builder.
 - [x] Переключатель режимов в AppBar и общая коллекция.
-- [x] RefreshIndicator: задержка 1500 мс, insert(0), setState, уникальные ID.
+- [x] RefreshIndicator: задержка 1500 мс, сортировка Newest через setState без создания товаров (по последнему запросу).
 - [x] Dismissible: ValueKey(product.id), красный фон, Icons.delete, UNDO по исходному индексу.
 - [x] Catalog is Empty, Restore catalog и обновление пустой коллекции.
 - [x] Сохранение изменённого каталога; новые товары работают с деталями, избранным и корзиной.

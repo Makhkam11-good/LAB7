@@ -43,7 +43,7 @@ NOVA помогает выбрать товар, изучить характер
 | Критерий | Реализация |
 | --- | --- |
 | ListView.separated и GridView.builder — 3 балла | Ленивый список с разделителями, сетка строго из двух колонок, адаптивный childAspectRatio, переключатель в AppBar |
-| RefreshIndicator — 2 балла | Pull-to-refresh в обоих режимах и пустом состоянии, Future.delayed на 1500 мс, новый уникальный товар в index 0, setState |
+| RefreshIndicator | Pull-to-refresh в обоих режимах и пустом состоянии, задержка 1500 мс, сортировка существующих товаров от новых к старым без добавления товаров (изменено по запросу), setState |
 | Dismissible и UNDO — 3 балла | ValueKey(product.id), свайп справа налево, красный фон с Icons.delete, SnackBar с UNDO, возврат по исходному индексу |
 | Архитектура и защита — 2 балла | Папки models, widgets, screens, отдельно data/state/core; сценарий демонстрации и вопросы в docs/DEFENSE.md |
 | Empty State | Иконка, точный заголовок «Catalog is Empty», кнопка Restore catalog для возврата seed-данных |

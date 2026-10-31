@@ -51,24 +51,33 @@ void main() {
   });
 
   testWidgets(
-    'refresh waits 1500ms, deduplicates requests and prepends unique arrival',
+    'refresh waits 1500ms and shows newest existing items without adding',
     (t) async {
       viewport(t, const Size(390, 900), 1);
       final store = ready();
+      store.catalog.addAll([arrivalProduct(2), arrivalProduct(10)]);
+      final originalIds = store.catalog.map((p) => p.id).toList();
       await launch(t, store);
+      await t.tap(find.byTooltip('Sort products'));
+      await t.pumpAndSettle();
+      await t.tap(find.text('Price: low to high'));
+      await t.pumpAndSettle();
       final refresh = t
           .widget<RefreshIndicator>(find.byType(RefreshIndicator))
           .onRefresh;
       final pending = refresh();
       await refresh();
       await t.pump(const Duration(milliseconds: 1499));
-      expect(store.catalog.length, 4);
+      expect(store.catalog.length, 6);
       await t.pump(const Duration(milliseconds: 1));
       await pending;
       await t.pumpAndSettle();
-      expect(store.catalog.first.id, 'arrival-1');
-      expect(store.catalog[1].id, 'headphones');
-      expect(store.catalog.length, 5);
+      expect(store.catalog.map((p) => p.id), originalIds);
+      expect(store.arrivalSerial, 0);
+      expect(
+        t.widgetList<CatalogTile>(find.byType(CatalogTile)).first.product.id,
+        'arrival-10',
+      );
       // Exercise the real overscroll gesture in the other view mode.
       await t.tap(find.byTooltip('Show grid'));
       await t.pumpAndSettle();
@@ -76,7 +85,11 @@ void main() {
       await t.pump(const Duration(milliseconds: 400));
       await t.pump(const Duration(milliseconds: 1500));
       await t.pumpAndSettle();
-      expect(store.catalog.first.id, 'arrival-2');
+      expect(store.catalog.map((p) => p.id), originalIds);
+      expect(
+        t.widgetList<CatalogTile>(find.byType(CatalogTile)).first.product.id,
+        'arrival-10',
+      );
       expect(store.catalog.map((p) => p.id).toSet().length, 6);
       expect(t.takeException(), isNull);
     },
@@ -165,8 +178,8 @@ void main() {
       await t.pump(const Duration(milliseconds: 400));
       await t.pump(const Duration(milliseconds: 1500));
       await t.pumpAndSettle();
-      expect(store.catalog.length, 1);
-      expect(store.catalog.first.id, 'arrival-1');
+      expect(store.catalog, isEmpty);
+      expect(find.text('Catalog is Empty'), findsOneWidget);
       expect(t.takeException(), isNull);
     },
   );

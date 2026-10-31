@@ -5,6 +5,7 @@ import '../models/product.dart';
 const products = [
   Product(
     id: 'headphones',
+    addedOrder: 4,
     title: 'Studio Headphones',
     subtitle: 'A little less world. A little more you.',
     description: 'Find your own quiet. Rich, balanced sound meets a soft, considered fit. Studio is made for focused mornings, long journeys and the songs you keep coming back to.',
@@ -27,6 +28,7 @@ const products = [
   ),
   Product(
     id: 'camera',
+    addedOrder: 3,
     title: 'Focus Camera',
     subtitle: 'Keep the little moments.',
     description: 'An everyday companion for your own way of seeing. A bright prime lens, intuitive controls and a small footprint let you spend less time adjusting and more time discovering.',
@@ -48,6 +50,7 @@ const products = [
   ),
   Product(
     id: 'speaker',
+    addedOrder: 2,
     title: 'Room Speaker',
     subtitle: 'Good sound. Wherever you are.',
     description: 'Small footprint, room-filling sound. Warm bass and clear vocals in a tactile fabric finish. Carry a little atmosphere from a slow morning at home to an evening with friends.',
@@ -69,6 +72,7 @@ const products = [
   ),
   Product(
     id: 'watch',
+    addedOrder: 1,
     title: 'Everyday Watch',
     subtitle: 'Make a little time for yourself.',
     description: 'Clean lines, a quiet dial and a comfortable everyday strap. A considered timepiece that brings a gentler rhythm to a busy day. An essential you will reach for again and again.',
@@ -96,6 +100,7 @@ Product arrivalProduct(int number) {
   final base = products[(number - 1) % products.length];
   return Product(
     id: 'arrival-$number',
+    addedOrder: products.length + number,
     title: '${base.title} · Edit $number',
     subtitle: 'Fresh in the collection. A new everyday favorite.',
     description: base.description,
@@ -144,5 +149,11 @@ List<Product> filterProducts({
     result.sort((a, b) => b.priceCents.compareTo(a.priceCents));
   }
   if (sort == 'Top rated') result.sort((a, b) => b.rating.compareTo(a.rating));
+  if (sort == 'Newest') {
+    result.sort((a, b) {
+      final order = b.addedOrder.compareTo(a.addedOrder);
+      return order != 0 ? order : a.id.compareTo(b.id);
+    });
+  }
   return result;
 }

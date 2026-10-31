@@ -22,9 +22,13 @@ class Product {
     required this.tags,
     required this.variants,
     required this.specs,
+    this.addedOrder = 0,
   });
   final String id, title, subtitle, description, image, category;
   final int priceCents;
+
+  /// Monotonic catalog publication order; larger values are newer.
+  final int addedOrder;
   final double rating;
   final List<String> tags;
   final List<ProductVariant> variants;

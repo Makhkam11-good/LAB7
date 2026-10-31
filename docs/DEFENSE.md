@@ -4,16 +4,16 @@
 
 1. Открой Discover. Покажи фото, название, category tag, звезду/рейтинг и цену в строке товара.
 2. Нажми иконку сетки в AppBar: те же товары показаны в двух колонках. Вернись в список.
-3. Потяни каталог вниз. Дождись индикатора обновления: через 1,5 секунды новый товар появится первым.
+3. Потяни каталог вниз. Через 1,5 секунды существующие товары отсортируются от новых к старым; количество товаров не изменится.
 4. Смахни второй товар справа налево. Покажи красный фон и иконку корзины, затем SnackBar.
 5. Нажми UNDO: удалённый товар возвращается на прежнюю позицию.
 6. Повтори обновление и удаление в Grid.
 7. Удали все товары: появится Catalog is Empty. Нажми Restore catalog и покажи исходные четыре товара.
-8. Открой новый товар, сохрани его в избранное, добавь в корзину и вернись назад. Состояние сохраняется.
+8. Открой товар, сохрани его в избранное, добавь в корзину и вернись назад. Состояние сохраняется.
 
 ## Код — 1 минута
 
-- lib/screens/feed_screen.dart: ListView.separated, GridView.builder, RefreshIndicator, Future.delayed, insert(0), Dismissible, ValueKey, UNDO, setState.
+- lib/screens/feed_screen.dart: ListView.separated, GridView.builder, RefreshIndicator, Future.delayed, сортировка Newest, Dismissible, ValueKey, UNDO, setState.
 - lib/screens/root_screen.dart: переключатель в AppBar.
 - lib/widgets/catalog_tile.dart: общая карточка для двух режимов.
 - lib/models/product.dart: модель товара.
